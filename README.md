@@ -72,7 +72,62 @@ yarn serve  //启动项目
 ### 2.3连接后端数据库
 * 首先⚠️：请确保你本地的后端服务正常，后端用python，node，php，java都可以 **(因为是前后端分离，所以后端的所有代码都不会影响到前端，请牢记这一点)**
 * 注意:如果你不知道什么是前后端分离，什么是接口，请自行谷歌/百度，接下来全文讲的基础都是在前后端分离以上
-* 其次⚠️: 请确保你本地的后端服务器开启了CORS跨域，具体怎么开谷歌即可，一行代码的事；如果实在不能配置跨域，我会在后面说明怎么在前端配置跨域
+* 其次⚠️: 请确保你本地的后端服务器开启了CORS跨域，具体怎么开谷歌即可，几行代码的事；如果实在不能配置跨域，我会在后面说明怎么在前端配置跨域
+
+算了..我讲下后端怎么开启CORS设置吧....实在是不想折腾前端代码了
+```python
+def lambda_handler(event, context):
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Origin': 'https://www.example.com',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+        },
+        'body': json.dumps('Hello from Lambda!')
+    };
+```
+
+```php
+// 在php页面设置
+// 设置允许其他域名访问
+header('Access-Control-Allow-Origin:*');  
+// 设置允许的响应类型 
+header('Access-Control-Allow-Methods:POST, GET');  
+// 设置允许的响应头 
+header('Access-Control-Allow-Headers:x-requested-with,content-type'); 
+```
+
+```java
+// 在任意配置类，返回一个新的CorsFilter Bean，并添加映射路径和具体的CORS配置信息。
+package com.hehe.yyweb.config;
+
+@Configuration
+public class GlobalCorsConfig {
+    @Bean
+    public CorsFilter corsFilter() {
+        //1.添加CORS配置信息
+        CorsConfiguration config = new CorsConfiguration();
+          //放行哪些原始域
+          config.addAllowedOrigin("*");
+          //是否发送Cookie信息
+          config.setAllowCredentials(true);
+          //放行哪些原始域(请求方式)
+          config.addAllowedMethod("*");
+          //放行哪些原始域(头部信息)
+          config.addAllowedHeader("*");
+          //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
+          config.addExposedHeader("*");
+
+        //2.添加映射路径
+        UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
+        configSource.registerCorsConfiguration("/**", config);
+
+        //3.返回新的CorsFilter.
+        return new CorsFilter(configSource);
+    }
+}
+```
 
 
 
