@@ -75,6 +75,7 @@ yarn serve  //启动项目
 * 其次⚠️: 请确保你本地的后端服务器开启了CORS跨域，具体怎么开谷歌即可，几行代码的事；如果实在不能配置跨域，我会在后面说明怎么在前端配置跨域
 
 算了..我讲下后端怎么开启CORS设置吧....实在是不想折腾前端代码了
+python版本
 ```python
 def lambda_handler(event, context):
     return {
@@ -88,6 +89,7 @@ def lambda_handler(event, context):
     };
 ```
 
+php版本
 ```php
 // 在php页面设置
 // 设置允许其他域名访问
@@ -98,6 +100,7 @@ header('Access-Control-Allow-Methods:POST, GET');
 header('Access-Control-Allow-Headers:x-requested-with,content-type'); 
 ```
 
+java版本
 ```java
 // 在任意配置类，返回一个新的CorsFilter Bean，并添加映射路径和具体的CORS配置信息。
 package com.hehe.yyweb.config;
@@ -129,6 +132,7 @@ public class GlobalCorsConfig {
 }
 ```
 
+****
 
 
 #### （1）打开项目文件夹中的 `service.js`文件，先配置好你的后端服务器baseUrl，目录在：
