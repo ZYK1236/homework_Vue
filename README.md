@@ -30,7 +30,7 @@
 
 ## 1.使用说明
 
-打开网页 http://dbhomework.117503445.top/#/first_step后， 输入后端接口 baseUrl 和 几个后端接口后缀即可
+打开网页 http://dbhomework.117503445.top/#/first_step  后，输入后端接口 baseUrl 和 几个后端接口后缀即可
 
 至于什么是baseUrl 和 后端接口后缀，请看例子:
 
